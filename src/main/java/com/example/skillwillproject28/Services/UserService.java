@@ -1,5 +1,6 @@
 package com.example.skillwillproject28.Services;
 
+import com.example.skillwillproject28.ExceptionHandling.GeneralException;
 import com.example.skillwillproject28.Models.UserModel;
 import com.example.skillwillproject28.Repositories.UserRepository;
 import com.example.skillwillproject28.Request.UserRegistrationRequest;
@@ -44,11 +45,11 @@ public class UserService {
         UserModel userModel1 = userRepo.findUserByUsername(username);
         if(userModel1 == null)
         {
-         throw new RuntimeException("user not found");
+         throw new GeneralException("user not found");
         }
         if(!encoder.matches(password,userModel1.getPassword()))
         {
-            throw new RuntimeException("username or password is not correct");
+            throw new GeneralException("username or password is not correct");
         }
         return jwtService.generateToken(userModel1);
 
